@@ -13,7 +13,8 @@ export default {
     },
     margin: {
       '0-auto': ['0px', 'auto'],
-      '6': '24px',
+      '6': '2rem',
+      '3': '1rem',
     },
   },
   plugins: [],

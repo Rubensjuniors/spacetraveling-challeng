@@ -1,7 +1,7 @@
 export interface PostProps {
   title: string
   descripition: string
-  publishDate: number | Date
+  publishDate: string
   name: string
   link: string
 }

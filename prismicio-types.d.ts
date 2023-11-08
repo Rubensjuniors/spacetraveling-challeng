@@ -4,49 +4,129 @@ import type * as prismic from '@prismicio/client'
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] }
 
-type SpacetravelingDocumentDataSlicesSlice = never
+/**
+ * Item in *posts → content*
+ */
+export interface PostsDocumentDataContentItem {
+  /**
+   * heading field in *posts → content*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.content[].heading
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  heading: prismic.KeyTextField
+
+  /**
+   * content field in *posts → content*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.content[].content
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField
+}
+
+type PostsDocumentDataSlicesSlice = never
 
 /**
- * Content for spaceTraveling documents
+ * Content for posts documents
  */
-interface SpacetravelingDocumentData {
+interface PostsDocumentData {
   /**
-   * Slice Zone field in *spaceTraveling*
+   * title field in *posts*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField
+
+  /**
+   * subtitle field in *posts*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.subtitle
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  subtitle: prismic.KeyTextField
+
+  /**
+   * author field in *posts*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  author: prismic.KeyTextField
+
+  /**
+   * banner field in *posts*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.banner
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  banner: prismic.ImageField<never>
+
+  /**
+   * content field in *posts*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: posts.content[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  content: prismic.GroupField<Simplify<PostsDocumentDataContentItem>>
+
+  /**
+   * Slice Zone field in *posts*
    *
    * - **Field Type**: Slice Zone
    * - **Placeholder**: *None*
-   * - **API ID Path**: spacetraveling.slices[]
+   * - **API ID Path**: posts.slices[]
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<SpacetravelingDocumentDataSlicesSlice> /**
-   * Meta Description field in *spaceTraveling*
+  slices: prismic.SliceZone<PostsDocumentDataSlicesSlice> /**
+   * Meta Description field in *posts*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: spacetraveling.meta_description
+   * - **API ID Path**: posts.meta_description
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   meta_description: prismic.KeyTextField
 
   /**
-   * Meta Image field in *spaceTraveling*
+   * Meta Image field in *posts*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
-   * - **API ID Path**: spacetraveling.meta_image
+   * - **API ID Path**: posts.meta_image
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   meta_image: prismic.ImageField<never>
 
   /**
-   * Meta Title field in *spaceTraveling*
+   * Meta Title field in *posts*
    *
    * - **Field Type**: Text
    * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: spacetraveling.meta_title
+   * - **API ID Path**: posts.meta_title
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
@@ -54,37 +134,34 @@ interface SpacetravelingDocumentData {
 }
 
 /**
- * spaceTraveling document from Prismic
+ * posts document from Prismic
  *
- * - **API ID**: `spacetraveling`
+ * - **API ID**: `posts`
  * - **Repeatable**: `true`
  * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
-export type SpacetravelingDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<SpacetravelingDocumentData>,
-    'spacetraveling',
-    Lang
-  >
+export type PostsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<PostsDocumentData>, 'posts', Lang>
 
-export type AllDocumentTypes = SpacetravelingDocument
+export type AllDocumentTypes = PostsDocument
 
 declare module '@prismicio/client' {
   interface CreateClient {
     (
       repositoryNameOrEndpoint: string,
-      options?: prismic.ClientConfig,
+      options?: prismic.ClientConfig
     ): prismic.Client<AllDocumentTypes>
   }
 
   namespace Content {
     export type {
-      SpacetravelingDocument,
-      SpacetravelingDocumentData,
-      SpacetravelingDocumentDataSlicesSlice,
-      AllDocumentTypes,
+      PostsDocument,
+      PostsDocumentData,
+      PostsDocumentDataContentItem,
+      PostsDocumentDataSlicesSlice,
+      AllDocumentTypes
     }
   }
 }
