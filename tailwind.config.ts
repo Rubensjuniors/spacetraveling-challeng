@@ -15,6 +15,7 @@ export default {
       '0-auto': ['0px', 'auto'],
       '6': '2rem',
       '3': '1rem',
+      '8': '3rem',
     },
   },
   plugins: [],

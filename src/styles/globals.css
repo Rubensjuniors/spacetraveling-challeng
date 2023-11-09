@@ -41,3 +41,13 @@ input {
   border: 0;
   background: transparent;
 }
+
+.postContent p {
+  margin-top: 1.5rem;
+  color: #d7d7d7;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.postContent a {
+  color: #f75a68;
+}
